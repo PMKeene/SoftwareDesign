@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Feb  3 00:08:52 2014
-
-@author: maire
+Think Python exercise 6.1
 """
-
+def compare(x,y):
+    if x>y:
+        return 1
+    if x==y:
+        return 0
+    if y>x:
+        return -1

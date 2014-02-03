@@ -1,8 +1,18 @@
 # -*- coding: utf-8 -*-
 """
-Spyder Editor
-
-This temporary script file is located here:
-/home/maire/.spyder2/.temp.py
+#Think Python Exercise 3.5
 """
-print "Hello, World"
+def print_columns():
+    print '|        '*2,'|'
+    print '|        '*2,'|'
+    print '|        '*2,'|'
+    print '|        '*2,'|'
+    
+def print_cap():
+    print '+ - - - -'*2,'+'
+    
+print_cap()
+print_columns()
+print_cap()
+print_columns()
+print_cap()
