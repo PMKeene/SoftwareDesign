@@ -24,6 +24,8 @@ def get_complementary_base(b):
     else:
         print 'ERROR: Check String Input'
 
+        #Good modularization
+
 def collapse(L):
     """ Converts a list of strings to a string by concatenating all elements of the list """
     output = ""
@@ -43,7 +45,7 @@ def coding_strand_to_AA(dna):
     """
     x=0    
     proteins=''
-    while x < len(dna):
+    while x < len(dna): #Why is this a while? Its fine, but consider using a for loop with a 3rd argument to range (stepsize)
         #chunk the dna
         codon=dna[x:x+3]
         for i in range(len(codons)):
@@ -53,8 +55,11 @@ def coding_strand_to_AA(dna):
                if codon==codons[i][j]:
                    #then find the protein that is associated with that codon and stick it in a list of coded amino acids
                   proteins = proteins+ aa[i]
+                        #+= works too
         x=x+3
     return proteins
+
+    #Cleanly written, and excellent documentation
 
 def coding_strand_to_AA_unit_tests():
     """ Unit tests for the coding_strand_to_AA function """
@@ -79,13 +84,13 @@ def get_reverse_complement(dna):
     comp=[]
     rev=''
     #make a list of the sumplementary bases
-    for b in dna:
+    for b in dna:   # Beautiful
         comp.append(get_complementary_base(b))
     #turn those back into a string
-    for c in comp:
+    for c in comp: # Try ''.join() it does exactly this
         rev=rev+str(c)
     #that is then returned backwards
-    return rev[::-1]
+    return rev[::-1]    # Equally beautiful
    
     
 def get_reverse_complement_unit_tests():
@@ -114,7 +119,7 @@ def rest_of_ORF(dna):
     while x < len(dna):
         codon=dna[x:x+3]
         #if its a stop codon whatever has been compiled so far will be returned without the stop
-        if (codon=='TAG') or (codon=='TAA') or (codon=='TGA'):
+        if (codon=='TAG') or (codon=='TAA') or (codon=='TGA'): #This is great. Just FYI, you can save words with "if codon in ['TAG','TAA','TGA']:"
             return ORF
         #and if it's just a normal codon it gets stuck on the end of our ORF
         else:
@@ -153,7 +158,7 @@ def find_all_ORFs_oneframe(dna):
         codon=dna[x:x+3]
         #if its the start of something, get me the rest of that
         if (codon=='ATG') :
-            ORF=rest_of_ORF(dna[x:])
+            ORF=rest_of_ORF(dna[x:]) 
             #then stick it in my list, and begin looking for the next ORF where this one left off
             AllORFs.append(ORF)
             x=x+len(ORF)
@@ -189,9 +194,12 @@ def find_all_ORFs(dna):
         #then start reading 1 base later and tell me what you find, store
         #and for the complete list, one more shift
          offset=i
-         FrameORF=find_all_ORFs_oneframe(dna[offset:])
+         FrameORF=find_all_ORFs_oneframe(dna[offset:]) #You could just use [i:], saves a line
          CompiledFramesORFs += FrameORF
-    return CompiledFramesORFs
+    return CompiledFramesORFs 
+
+    #Hmm, I appreciate that you chose to do this function in a scalable manner
+
     
 def find_all_ORFs_unit_tests():
     """ Unit tests for the find_all_ORFs function """
@@ -212,7 +220,7 @@ def find_all_ORFs_both_strands(dna):
     #the other side of this dna strand
     dna2=get_reverse_complement(dna)
     #now a list added to a list of all the ORFs for each of these strands
-    return find_all_ORFs(dna)+find_all_ORFs(dna2)
+    return find_all_ORFs(dna)+find_all_ORFs(dna2) #Good stuff.
     
 
 def find_all_ORFs_both_strands_unit_tests():
@@ -230,7 +238,8 @@ def longest_ORF(dna):
         as a string"""
     #EVERYTHING we can find, but only tell me the longest one (hence key=len)
     AllTheORFs=find_all_ORFs_both_strands(dna)
-    return max(AllTheORFs,key=len)
+    return max(AllTheORFs,key=len) #Great. Also, if max is this short, just nest function calls and 
+                                    #turn this function into one line.
     
 
 def longest_ORF_unit_tests():
@@ -253,6 +262,8 @@ def longest_ORF_noncoding(dna, num_trials):
         returns: the maximum length longest ORF """
 #list.shuffle does not seem to be a thing according to what I found on the web
 #but there is a shuffle in random, so I'm doing that
+#Good decision
+
     Champions=[]
     #we want to do this num_trials amount of times
     for i in range(num_trials):
@@ -290,4 +301,4 @@ def gene_finder(dna, threshold):
 
    
 if __name__ == "__main__": 
-    print "hello friendly NINJA"
+    print "hello friendly NINJA" #Tryna butter up the Ninjas, eh? 
